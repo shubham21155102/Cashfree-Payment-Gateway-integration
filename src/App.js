@@ -5,7 +5,9 @@ import "./css.css"
 const App = () => {
     const params = useParams()
     const isSessionId = params.sessionid
+    // eslint-disable-next-line no-unused-vars
     const [sessionId, setSessionId] = useState('');
+     // eslint-disable-next-line no-unused-vars
     const [orderId, setOrderId] = useState('');
     const [customer_name, setCustomerName] = useState('');
     const [customer_phone, setCustomerPhone] = useState('');
@@ -21,53 +23,51 @@ const App = () => {
         "order_amount": "1",
         "order_note": "Hello This is test"
     }
-    const handleSubmitDetails=async (e)=>{
-        e.preventDefault();
-       
-
-        await setAllSet(true);
-        console.log(order.customer_id, customer_name, customer_phone, customer_email, order_amount, order_note);
-        var raw = JSON.stringify({
-          "customer_id": order.customer_id,
-          "customer_name": customer_name,
-          "customer_phone": customer_phone,
-          "customer_email": customer_email,
-          "order_amount": order_amount,
-          "order_note": order_note
-        });
-        var requestOptions = {
-          method: 'POST',
-          headers:{
-            "Content-Type": "application/json",
-          },
-          body: raw,
-          redirect: 'follow'
-        };
-        
-        const data=await fetch("http://dev.ostello.co.in/merchant-app/newpayment",requestOptions)
-        const datas=await data.json()
-        console.log(datas)
-        const paymentSessionId = datas.payment_details.payment_session_id;
-        setSessionId(paymentSessionId)
-        const orderIdd = datas.payment_details.order_id;
-        setOrderId(orderIdd)
-    }
-    const handlePayment = ()=>{
-        let checkoutOptions = {
-            paymentSessionId: sessionId,
-            returnUrl: `http://dev.ostello.co.in/merchant-app/checkstatus?orderId=${orderId}`,
-            
-        }   
-        cashfree.checkout(checkoutOptions).then(function(result){
-            if(result.error){
-                alert(result.error.message);
-            }
-            if(result.redirect){
-                console.log("Redirection")
-                console.log(result);
-            }
-        });
-    }
+    const handleSubmitDetails = async (e) => {
+      e.preventDefault();
+      setAllSet(true);
+  
+      try {
+          const requestBody = {
+              customer_id: order.customer_id,
+              customer_name: customer_name,
+              customer_phone: customer_phone,
+              customer_email: customer_email,
+              order_amount: order_amount,
+              order_note: order_note
+          };
+          const response = await fetch("http://dev.ostello.co.in/merchant-app/newpayment", {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(requestBody)
+          });
+          if (!response.ok) {
+              throw new Error('Failed to submit payment details');
+          }
+          const responseData = await response.json();
+          const paymentSessionId = responseData.payment_details.payment_session_id;
+          const orderId = responseData.payment_details.order_id;
+          setSessionId(paymentSessionId);
+          setOrderId(orderId);
+          const checkoutOptions = {
+              paymentSessionId: paymentSessionId,
+              returnUrl: `http://dev.ostello.co.in/merchant-app/checkstatus?orderId=${orderId}`
+          };
+          const result = await cashfree.checkout(checkoutOptions);
+          if (result.error) {
+              alert(result.error.message);
+          } else if (result.redirect) {
+              console.log("Redirection");
+              console.log(result);
+          }
+      } catch (error) {
+          console.error('Error:', error.message);
+      } finally {
+          setAllSet(false);
+      }
+  };
 
     useEffect(()=>{
         setSessionId(isSessionId)
@@ -89,11 +89,9 @@ const App = () => {
           <input type="text" value={order_note} onChange={(e)=>{setOrderNote(e.target.value)}} placeholder="Order Note" required/>
           <br/>
           <button type="submit">Pay Now</button>
-        </form></>:<><div className='card px-5 py-4 mt-5'>
-            <div className='col-12 center'>
-                <button className='w-100 ' type="submit" onClick={handlePayment}>Pay Now</button>
-            </div>
-        </div></>}
+        </form></>:<>
+          "Please wait while we are processing your request"
+        </>}
        
             <img width={300} src={""} alt="" />
         </div>
