@@ -36,7 +36,7 @@ const App = () => {
               order_amount: order_amount,
               order_note: order_note
           };
-          const response = await fetch("http://dev.ostello.co.in/merchant-app/newpayment", {
+          const response = await fetch("https://dev.ostello.co.in/merchant-app/newpayment", {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ const App = () => {
           setOrderId(orderId);
           const checkoutOptions = {
               paymentSessionId: paymentSessionId,
-              returnUrl: `http://dev.ostello.co.in/merchant-app/checkstatus?orderId=${orderId}`
+              returnUrl: `https://dev.ostello.co.in/merchant-app/checkstatus?orderId=${orderId}`
           };
           const result = await cashfree.checkout(checkoutOptions);
           if (result.error) {
