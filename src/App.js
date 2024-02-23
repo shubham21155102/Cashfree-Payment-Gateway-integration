@@ -37,7 +37,7 @@ const App = () => {
               order_amount: order_amount,
               order_note: order_note
           };
-          const response = await fetch("http://shiner-enjoyed-stinkbug.ngrok-free.app/merchant-app/newpayment", {
+          const response = await fetch("https://shiner-enjoyed-stinkbug.ngrok-free.app/merchant-app/newpayment", {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const App = () => {
           setOrderId(orderId);
           const checkoutOptions = {
               paymentSessionId: paymentSessionId,
-              returnUrl: `http://shiner-enjoyed-stinkbug.ngrok-free.app/checkstatus?orderId=${orderId}`
+              returnUrl: `https://shiner-enjoyed-stinkbug.ngrok-free.app/checkstatus?orderId=${orderId}`
           };
           const result = await cashfree.checkout(checkoutOptions);
           if (result.error) {
