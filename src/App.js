@@ -23,6 +23,7 @@ const App = () => {
         "order_amount": "1",
         "order_note": "Hello This is test"
     }
+    // ngrok http --domain=shiner-enjoyed-stinkbug.ngrok-free.app 80
     const handleSubmitDetails = async (e) => {
       e.preventDefault();
       setAllSet(true);
@@ -36,7 +37,11 @@ const App = () => {
               order_amount: order_amount,
               order_note: order_note
           };
+<<<<<<< HEAD
           const response = await fetch("https://dev.ostello.co.in/merchant-app/newpayment", {
+=======
+          const response = await fetch("http://shiner-enjoyed-stinkbug.ngrok-free.app/merchant-app/newpayment", {
+>>>>>>> 3ea57ea (add own cashfree)
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json'
@@ -53,7 +58,11 @@ const App = () => {
           setOrderId(orderId);
           const checkoutOptions = {
               paymentSessionId: paymentSessionId,
+<<<<<<< HEAD
               returnUrl: `https://dev.ostello.co.in/merchant-app/checkstatus?orderId=${orderId}`
+=======
+              returnUrl: `http://shiner-enjoyed-stinkbug.ngrok-free.app/checkstatus?orderId=${orderId}`
+>>>>>>> 3ea57ea (add own cashfree)
           };
           const result = await cashfree.checkout(checkoutOptions);
           if (result.error) {
