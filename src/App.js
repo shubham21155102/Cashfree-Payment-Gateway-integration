@@ -39,7 +39,7 @@ const App = () => {
                 order_amount: order_amount,
                 order_note: order_note
             };
-            const response = await fetch("http://localhost:8000/payment", {
+            const response = await fetch("https://api.shubhamiitbhu.in/payment", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ const App = () => {
             setOrderId(orderId);
             const checkoutOptions = {
                 paymentSessionId: paymentSessionId,
-                returnUrl: `http://localhost:8000/payment?order_id=${orderId}`
+                returnUrl: `https//api.shubhamiitbhu.in/payment?order_id=${orderId}`
             };
             cashfree.checkout(checkoutOptions).then(function(result){
                 if(result.error){
