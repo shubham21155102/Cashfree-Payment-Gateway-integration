@@ -23,7 +23,7 @@ const App = () => {
         "order_amount": "1",
         "order_note": "Hello This is test"
     }
-    // ngrok http --domain=shiner-enjoyed-stinkbug.ngrok-free.app 80
+    // ngrok http --domain=shiner-enjoyed-stinkbug.ngrok-free.app 8000
     const handleSubmitDetails = async (e) => {
       e.preventDefault();
       setAllSet(true);
@@ -37,7 +37,7 @@ const App = () => {
               order_amount: order_amount,
               order_note: order_note
           };
-          const response = await fetch("https://shiner-enjoyed-stinkbug.ngrok-free.app/merchant-app/newpayment", {
+          const response = await fetch("https://api.shubhamiitbhu.in/payment", {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const App = () => {
           setOrderId(orderId);
           const checkoutOptions = {
               paymentSessionId: paymentSessionId,
-              returnUrl: `https://shiner-enjoyed-stinkbug.ngrok-free.app/checkstatus?orderId=${orderId}`
+              returnUrl: `https://api.shubhamiitbhu.in/payment?orderId=${orderId}`
           };
           const result = await cashfree.checkout(checkoutOptions);
           if (result.error) {
