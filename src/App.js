@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { cashfree } from './utils';
 import { useParams } from 'react-router-dom';
-import "./css.css"
+import "./css.css";
 
 const App = () => {
-    const params = useParams()
-    const isSessionId = params.sessionid
+    const params = useParams();
+    const isSessionId = params.sessionid;
     const [sessionId, setSessionId] = useState('');
     const [orderId, setOrderId] = useState('');
     const [customer_name, setCustomerName] = useState('');
@@ -24,7 +24,7 @@ const App = () => {
         "customer_email": "resoshubham2002@gmail.com",
         "order_amount": "1",
         "order_note": "Hello This is test"
-    }
+    };
 
     const handleSubmitDetails = async (e) => {
         e.preventDefault();
@@ -56,14 +56,14 @@ const App = () => {
             setOrderId(orderId);
             const checkoutOptions = {
                 paymentSessionId: paymentSessionId,
-                returnUrl: `https//api.shubhamiitbhu.in/payment?order_id=${orderId}`
+                returnUrl: `https://api.shubhamiitbhu.in/payment?order_id=${orderId}`
             };
-            cashfree.checkout(checkoutOptions).then(function(result){
-                if(result.error){
+            cashfree.checkout(checkoutOptions).then(function(result) {
+                if (result.error) {
                     alert(result.error.message);
                 }
-                if(result.redirect){
-                    console.log("Redirection")
+                if (result.redirect) {
+                    console.log("Redirection");
                     console.log(result);
                 }
             });
@@ -75,7 +75,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        setSessionId(isSessionId)
+        setSessionId(isSessionId);
     }, [isSessionId]);
 
     useEffect(() => {
@@ -92,6 +92,7 @@ const App = () => {
                 <div className='center'>
                     {!allset ? 
                     <>
+                        <img className="product-image" src="https://rukminim2.flixcart.com/image/832/832/xif0q/washing-machine-new/b/c/g/-original-imagvrbhcwuwz7j7.jpeg?q=70&crop=false" alt="Product" />
                         <form onSubmit={handleSubmitDetails}>
                             <input type="text" value={customer_name} onChange={(e) => { setCustomerName(e.target.value) }} placeholder="Customer Name" required />
                             <br />
@@ -108,9 +109,8 @@ const App = () => {
                     </>
                     :
                     <>
-                        "Please wait while we are processing your request"
+                        <div className="loading-message">Please wait while we are processing your request</div>
                     </>}
-                    <img width={300} src={""} alt="" />
                 </div>
             </div>
         </>

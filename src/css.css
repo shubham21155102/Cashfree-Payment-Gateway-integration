@@ -1,38 +1,57 @@
-.main{
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
-button{
-    margin-top: 20px;
-    font-size: 20px;
-    color: white;
-    background-color: #0D94FB;
-    border: none;
-    padding: 8px 5px;
+.center {
+    background: white;
+    padding: 20px;
     border-radius: 10px;
-    &:hover{
-        opacity: 0.8;
-    }
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
 }
 
-
-.center{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-label{
-    text-align: start !important;
-}
-input{
-    font-size: 20px;
-    padding: 5px;
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    margin-top: 10px;
-    border: 1px solid lightgray;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+img.product-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.loading-message {
+    font-size: 18px;
+    color: #333;
 }
