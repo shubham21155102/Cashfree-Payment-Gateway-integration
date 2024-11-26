@@ -15,7 +15,7 @@ const App = () => {
     const [order_note, setOrderNote] = useState('');
     const [allset, setAllSet] = useState(false);
     const [paymentSuccess, setPaymentSuccess] = useState(false);
-    const [redirected, setRedirected] = useState(false); // Flag to track redirection
+    const [redirected, setRedirected] = useState(false);
 
     const order = {
         "customer_id": "006d7609-5007-4323-95a9-e8210fc489e7",
@@ -50,6 +50,7 @@ const App = () => {
                 throw new Error('Failed to submit payment details');
             }
             const responseData = await response.json();
+            console.log(responseData);
             const paymentSessionId = responseData.payment_details.payment_session_id;
             const orderId = responseData.payment_details.order_id;
             setSessionId(paymentSessionId);
@@ -80,8 +81,7 @@ const App = () => {
 
     useEffect(() => {
         if (paymentSuccess && !redirected) {
-            // Redirect to home page only if not redirected already
-            setRedirected(true); // Set flag to true
+            setRedirected(true); 
             window.location.href = "/";
         }
     }, [paymentSuccess, redirected]);
