@@ -5,6 +5,7 @@ import Success from './components/success';
 import Failure from './components/failure';
 import App from './App';
 import Pending from './components/pending';
+import Book from './components/Book';
 
 function Routes_() {
   return (
@@ -15,6 +16,7 @@ function Routes_() {
           <Route exact path='/success' element={<Success />} />
           <Route exact path='/failure' element={<Failure />} />
           <Route exact path='/pending' element={<Pending />} />
+          <Route exact path='/book' element={<Book />} />
         </Routes>
       </div>
     </BrowserRouter>
