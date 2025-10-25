@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { cashfree } from './utils';
-import { useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
 import "./css.css";
+import Contact from './Contact';
 
-const App = () => {
+const Home = () => {
     const params = useParams();
     const isSessionId = params.sessionid;
     const [sessionId, setSessionId] = useState('');
@@ -81,7 +82,7 @@ const App = () => {
 
     useEffect(() => {
         if (paymentSuccess && !redirected) {
-            setRedirected(true); 
+            setRedirected(true);
             window.location.href = "/";
         }
     }, [paymentSuccess, redirected]);
@@ -90,31 +91,44 @@ const App = () => {
         <>
             <div className='main'>
                 <div className='center'>
-                    {!allset ? 
-                    <>
-                        <img className="product-image" src="https://rukminim2.flixcart.com/image/832/832/xif0q/washing-machine-new/b/c/g/-original-imagvrbhcwuwz7j7.jpeg?q=70&crop=false" alt="Product" />
-                        <form onSubmit={handleSubmitDetails}>
-                            <input type="text" value={customer_name} onChange={(e) => { setCustomerName(e.target.value) }} placeholder="Customer Name" required />
-                            <br />
-                            <input type="text" value={customer_phone} onChange={(e) => { setCustomerPhone(e.target.value) }} placeholder="Customer Phone" required />
-                            <br />
-                            <input type="text" value={customer_email} onChange={(e) => { setCustomerEmail(e.target.value) }} placeholder="Customer Email" required />
-                            <br />
-                            <input type="text" value={order_amount} onChange={(e) => { setOrderAmount(e.target.value) }} placeholder="Order Amount" required />
-                            <br />
-                            <input type="text" value={order_note} onChange={(e) => { setOrderNote(e.target.value) }} placeholder="Order Note" required />
-                            <br />
-                            <button type="submit">Pay Now</button>
-                        </form>
-                    </>
-                    :
-                    <>
-                        <div className="loading-message">Please wait while we are processing your request</div>
-                    </>}
+                    {!allset ?
+                        <>
+                            <img className="product-image" src="https://rukminim2.flixcart.com/image/832/832/xif0q/washing-machine-new/b/c/g/-original-imagvrbhcwuwz7j7.jpeg?q=70&crop=false" alt="Product" />
+                            <form onSubmit={handleSubmitDetails}>
+                                <input type="text" value={customer_name} onChange={(e) => { setCustomerName(e.target.value) }} placeholder="Customer Name" required />
+                                <br />
+                                <input type="text" value={customer_phone} onChange={(e) => { setCustomerPhone(e.target.value) }} placeholder="Customer Phone" required />
+                                <br />
+                                <input type="text" value={customer_email} onChange={(e) => { setCustomerEmail(e.target.value) }} placeholder="Customer Email" required />
+                                <br />
+                                <input type="text" value={order_amount} onChange={(e) => { setOrderAmount(e.target.value) }} placeholder="Order Amount" required />
+                                <br />
+                                <input type="text" value={order_note} onChange={(e) => { setOrderNote(e.target.value) }} placeholder="Order Note" required />
+                                <br />
+                                <button type="submit">Pay Now</button>
+                            </form>
+                        </>
+                        :
+                        <>
+                            <div className="loading-message">Please wait while we are processing your request</div>
+                        </>}
                 </div>
             </div>
         </>
     );
 };
 
-export default App;
+export default function App() {
+    return (
+        <Router>
+            <nav style={{ padding: 10 }}>
+                <Link to="/">Home</Link> | <Link to="/contact">Contact</Link>
+            </nav>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/:sessionid" element={<Home />} />
+            </Routes>
+        </Router>
+    );
+}
